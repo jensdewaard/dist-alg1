@@ -13,4 +13,12 @@ public class VectorTimestamp implements Timestamp {
         }
         return leq;
     }
+
+    public String toString() {
+        String output = "";
+        for (int item : clock) {
+            output += item + " ";
+        }
+        return output;
+    }
 }

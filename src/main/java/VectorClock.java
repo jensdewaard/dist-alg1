@@ -16,9 +16,9 @@ public class VectorClock implements Clock {
     public void update(Timestamp other) {
         VectorTimestamp c = (VectorTimestamp) other;
         for(int i = 0; i < size; i++) {
-            if(i != index) {
+//            if(i != index) {
                 clock[i] = Math.max(clock[i], c.clock[i]);
-            }
+//            }
         }
         increment();
     }
