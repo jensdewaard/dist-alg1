@@ -15,22 +15,22 @@ public class Main {
         p1Messages.add(new Pair<>(p2, "p1 -> p2"));
         p1Messages.add(new Pair<>(p3, "p1 -> p3"));
         p1Messages.add(new Pair<>(p2, "p1 -> p2"));
-        p1Messages.add(new Pair<>(p2, "p1 -> p2"));
+        p1Messages.add(new Pair<>(p3, "p1 -> p3"));
         p1.setOutbox(p1Messages);
 
         List<Pair<Process, String>> p2Messages = new ArrayList<>();
-        p2Messages.add(new Pair<>(p3, "p2 -> p3"));
-        p2Messages.add(new Pair<>(p3, "p2 -> p3"));
+        p2Messages.add(new Pair<>(p1, "p2 -> p1"));
         p2Messages.add(new Pair<>(p3, "p2 -> p3"));
         p2Messages.add(new Pair<>(p1, "p2 -> p1"));
+        p2Messages.add(new Pair<>(p3, "p2 -> p3"));
         p2Messages.add(new Pair<>(p1, "p2 -> p1"));
         p2.setOutbox(p2Messages);
 
         List<Pair<Process, String>> p3Messages = new ArrayList<>();
         p3Messages.add(new Pair<>(p2, "p3 -> p2"));
-        p3Messages.add(new Pair<>(p2, "p3 -> p2"));
         p3Messages.add(new Pair<>(p1, "p3 -> p1"));
         p3Messages.add(new Pair<>(p2, "p3 -> p2"));
+        p3Messages.add(new Pair<>(p1, "p3 -> p1"));
         p3Messages.add(new Pair<>(p2, "p3 -> p2"));
         p3.setOutbox(p3Messages);
 

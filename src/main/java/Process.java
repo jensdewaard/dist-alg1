@@ -37,7 +37,7 @@ public class Process implements Node, Runnable {
         while (outbox != null && outbox.size() > 0) {
             Random random = new Random();
             try {
-                Thread.sleep(random.nextInt(1000));
+                Thread.sleep(random.nextInt(3000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -76,6 +76,7 @@ public class Process implements Node, Runnable {
             deliver(message, Sm, Vm);
         } else {
             B.add(new Message(message, Sm, Vm));
+            System.out.println("Cant deliver message " + Vm + " at time " + clock.stamp());
         }
     }
 
@@ -97,15 +98,20 @@ public class Process implements Node, Runnable {
                 clock.increment();
                 S.merge(m.Sm);
                 System.out.println("Deliver: " + m.message + ", " + Vm.toString());
+            } else {
+                System.out.println("Cant deliver message " + m.Vm + " at time " + clock.stamp());
             }
         }
     }
 
     private boolean canDeliver(OrderingBuffer Sm) {
-        return !Sm.contains(id) || Sm.get(id).leq(clock.stamp());
+        return !Sm.contains(id) || !Sm.get(id).gt(clock.stamp());
     }
 
     public void flush() {
+        if(this.delivered.size() != 5) {
+            System.out.println("Process " + id + " is missing messages, has only " + delivered.size());
+        }
         for(int i = 0 ; i < this.delivered.size() - 1; i++) {
             Timestamp prev = this.delivered.get(i).Vm;
             Timestamp next = this.delivered.get(i+1).Vm;
