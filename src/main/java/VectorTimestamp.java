@@ -14,11 +14,22 @@ public class VectorTimestamp implements Timestamp {
         return leq;
     }
 
+    public boolean gt(Timestamp other) {
+        VectorTimestamp vOther = (VectorTimestamp) other;
+        boolean gt = true;
+        for(int i = 0; i < clock.length; i++) {
+            gt = gt && (clock[i] > vOther.clock[i]);
+        }
+        return gt;
+    }
+
     public String toString() {
-        String output = "";
+        String output = "[";
         for (int item : clock) {
             output += item + " ";
         }
+        output = output.trim();
+        output += "]";
         return output;
     }
 }
