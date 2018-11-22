@@ -16,7 +16,7 @@ public class Process implements Node, Runnable {
     private final OrderingBuffer S;
     private final Registry registry;
     private final Node node;
-    private List<Pair<Process, String>> outbox;
+    private List<Pair<Id, String>> outbox;
 
     public Process(int id, int networkSize) throws RemoteException, AlreadyBoundException {
         this.id = new Id(id);
@@ -41,10 +41,10 @@ public class Process implements Node, Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Pair<Process, String> outgoingMessage = outbox.get(0);
+            Pair<Id, String> outgoingMessage = outbox.get(0);
             outbox.remove(0);
 
-            Id id = outgoingMessage.fst.id;
+            Id id = outgoingMessage.fst;
             try {
                 Node stub = (Node) this.registry.lookup(id.toString());
                 S.put(id, (VectorTimestamp) clock.stamp());
@@ -80,7 +80,7 @@ public class Process implements Node, Runnable {
         }
     }
 
-    public void setOutbox(List<Pair<Process, String>> outgoing) {
+    public void setOutbox(List<Pair<Id, String>> outgoing) {
         this.outbox = outgoing;
     }
 
