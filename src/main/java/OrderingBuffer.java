@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderingBuffer {
+public class OrderingBuffer implements Serializable {
     Map<Id, VectorTimestamp> buffer;
 
     public OrderingBuffer() {
