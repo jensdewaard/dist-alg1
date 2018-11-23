@@ -20,10 +20,10 @@ public class VectorClock implements Clock {
                 clock[i] = Math.max(clock[i], c.clock[i]);
 //            }
         }
-        increment();
+//        increment();
     }
 
     public Timestamp stamp() {
-        return new VectorTimestamp(clock);
+        return new VectorTimestamp(clock.clone());
     }
 }

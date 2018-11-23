@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class VectorTimestamp implements Timestamp {
     final int[] clock;
 
@@ -31,5 +33,22 @@ public class VectorTimestamp implements Timestamp {
         output = output.trim();
         output += "]";
         return output;
+    }
+
+    public boolean equals(Object o) {
+        VectorTimestamp other = (VectorTimestamp) o;
+        return Arrays.equals(this.clock, other.clock);
+    }
+
+    public Timestamp copy() {
+        return new VectorTimestamp(clock.clone());
+    }
+
+    public static VectorTimestamp max(VectorTimestamp left, VectorTimestamp right) {
+       int[] l = left.clock.clone();
+       for(int i = 0; i < l.length; i++) {
+           l[i] = Math.max(l[i], right.clock[i]);
+       }
+       return new VectorTimestamp(l);
     }
 }
